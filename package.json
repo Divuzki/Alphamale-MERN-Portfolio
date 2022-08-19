@@ -1,0 +1,31 @@
+{
+  "name": "alphamale-portfolio",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "server": "cd server && npm start",
+    "bulid": "snowpack build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@snowpack/plugin-postcss": "^1.4.3",
+    "@snowpack/plugin-react-refresh": "^2.5.0",
+    "@snowpack/plugin-webpack": "^3.0.0",
+    "postcss": "^8.4.16",
+    "snowpack": "^3.8.8",
+    "snowpack-svgr-plugin": "^1.0.3",
+    "tailwindcss": "^3.1.8"
+  },
+  "dependencies": {
+    "framer-motion": "^7.2.0",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "webpack": "^5.74.0"
+  },
+  "description": ""
+}
