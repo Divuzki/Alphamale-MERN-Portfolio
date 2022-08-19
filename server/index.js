@@ -6,8 +6,8 @@ import "colors";
 import "dotenv/config";
 import errorHandler from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 
