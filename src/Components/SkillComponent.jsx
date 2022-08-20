@@ -16,11 +16,12 @@ function SkillComponent() {
         </p>
 
         <div className="mt-[3rem] shadow-md flex flex-wrap -mx-4 w-full">
+          <div className="hidden text-pink-500 text-blue-500 text-greean-500 bg-pink-100 bg-blue-100 bg-green-100"></div>
           <div className="p-4 md:mb-0 mb-6 flex flex-wrap gap-10 ">
             {skillsList.map((n, idx) => (
               <div
                 key={idx}
-                className="pattern-dots-md gray-light mb-[3rem] w-full md:w-[24rem]"
+                className="pattern-dots-lg gray-light mb-[3rem] w-full md:w-[24rem]"
               >
                 <div className="rounded bg-gray-800 p-4 transform translate-x-6 -translate-y-6  ">
                   <div

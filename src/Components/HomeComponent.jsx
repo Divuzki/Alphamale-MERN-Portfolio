@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 function HomeComponent() {
   const updateList = () => {
@@ -37,11 +38,22 @@ function HomeComponent() {
     window.addEventListener("scroll", updateList, { passive: true });
     return () => window.removeEventListener("scroll", updateList);
   }, []);
+  const variants = {
+    initial: { y: -20, opacity: 0 },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  };
   return (
-    <div className="container mt-40 md:mt-16 flex justify-between items-center mx-auto px-8 md:px-14 lg:px-24 w-full">
+    <div className="container flex justify-between items-center mx-auto px-8 md:px-14 lg:px-24 w-full">
       <div className="flex flex-wrap md:flex-nowrap w-full">
         <nav className="lg:mr-24 lg:w-4 fixed left-percentage hidden xl:block">
-          <div className="absolute left-50 z-[101] transform -translate-x-1/2 space-y-6 mt-36">
+          <div className="absolute left-50 z-[101] flex flex-col gap-[3.5rem] transform -translate-x-1/2 space-y-6 mt-36">
             <a
               href="#"
               className="nav-dot selected-circle block w-7 h-7 rounded-full border-4 border-nav bg-body"
@@ -66,23 +78,18 @@ function HomeComponent() {
                 Skills
               </span>
             </a>
-            <a
-              href="#hire"
-              className="nav-dot block w-7 h-7 rounded-full border-4 border-nav bg-body"
-            >
-              <span className="bg-black px-2 py-1 rounded-md ml-10 opacity-0">
-                Enquiries
-              </span>
-            </a>
           </div>
         </nav>
 
         <div className="flex w-full flex-wrap lg:ml-20 justify-center md:justify-start max-w-xl mt-0 md:my-36">
-          <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl text-center md:text-left">
+          <motion.h1
+            variants={variants}
+            className="font-bold text-5xl md:text-6xl lg:text-7xl text-center md:text-left"
+          >
             Datalphamale
             <br />
             Studios.
-          </h1>
+          </motion.h1>
           <div className="w-full flex justify-center md:justify-start">
             <button className="px-8 py-4 rounded-lg bg-theme text-white font-bold mt-12 flex items-center space-x-3">
               <div>

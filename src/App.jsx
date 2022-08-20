@@ -1,14 +1,37 @@
-import React from 'react'
-import Header from './Components/Header'
-import MainContainer from './Components/MainContainer'
+import React from "react";
+import Header from "./Components/Header";
+import MainContainer from "./Components/MainContainer";
+import HireFormComponent from "./Components/HireFormComponent";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { InitialTransition } from "./Animate";
 
 const App = () => {
+  const [firstMount, setFirstMount] = React.useState(false);
+  if (firstMount === false) {
+    setFirstMount(true);
+  }
+  const location = useLocation();
   return (
-    <React.Fragment>
-      <Header />
-      <MainContainer />
-    </React.Fragment>
-  )
-}
+    <AnimatePresence exitBeforeEnter>
+      <motion.section exit={{ opacity: 0 }}>
+        {firstMount === true && <InitialTransition setFirstMount={setFirstMount} />}
 
-export default App
+        <Header indexPage={location.pathname === "/" && true} />
+        <div className="mt-40 md:mt-[6.5rem]">
+          <Routes>
+            <Route
+              path="/"
+              location={location}
+              key={location.pathname}
+              element={<MainContainer />}
+            />
+            <Route path="/pages/hire" element={<HireFormComponent />} />
+          </Routes>
+        </div>
+      </motion.section>
+    </AnimatePresence>
+  );
+};
+
+export default App;
