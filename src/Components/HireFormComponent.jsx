@@ -78,11 +78,11 @@ const HireFormComponent = () => {
                 </label>
                 <textarea
                   type="email"
-                  className="w-full border border-input-border rounded-md bg-input px-4 py-4 h-56 resize-none"
+                  className="w-full border border-input-border focus:outline-theme rounded-md bg-input px-4 py-4 h-56 resize-none"
                 ></textarea>
               </div>
-              <button className="px-6 py-2 bg-theme text-white font-bold">
-                Send it!
+              <button className="px-6 py-2 bg-theme rounded-lg w-full text-white font-bold">
+                Make that dream come true
               </button>
             </div>
 

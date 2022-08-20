@@ -58,7 +58,8 @@ const text = {
   },
 };
 export const InitialTransition = ({ setFirstMount }) => {
-  return (
+  const [firstMount2, setFirstMount2] = React.useState(false);
+  return firstMount2 === false && (
     <div className="absolute inset-0 flex items-center justify-center">
       <motion.div
         className="absolute z-50 flex items-center justify-center w-full bg-body"
@@ -68,7 +69,8 @@ export const InitialTransition = ({ setFirstMount }) => {
         onAnimationStart={() => document.body.classList.add("overflow-hidden")}
         onAnimationComplete={() => {
           document.body.classList.remove("overflow-hidden");
-          setFirstMount(true);
+            setFirstMount(true);
+            setFirstMount2(true)
         }}
       >
         <motion.svg variants={textContainer} className="absolute z-50 flex">
