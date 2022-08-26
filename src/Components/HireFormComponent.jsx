@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Animate from "../Animate";
 import { skillsList } from "./Lists";
-
+import { motion } from "framer-motion";
 const HireFormComponent = () => {
   const [reason, setReason] = useState("");
 
@@ -44,30 +44,58 @@ const HireFormComponent = () => {
                     *
                   </span>
                 </label>
-                <div className="w-full border transition-all border-input-border rounded-lg bg-input px-4 py-4">
+                <div className="w-full flex flex-col gap-4 border transition-all border-input-border rounded-lg bg-input px-4 py-4">
                   <span className="w-full text-base font-semibold">
                     Select what you want to make enquiry for
                   </span>
-                  <ul className="flex flex-col gap-2 select-none">
+                  <ul className="flex flex-col gap-4 select-none">
                     {skillsList.map((n, idx) => (
-                      <li
-                        key={idx}
-                        onClick={() =>
-                          setReason(reason === n.skill ? "" : n.skill)
-                        }
-                        className={`flex gap-2 transition-all duration-75 ${
-                          reason !== "" && reason !== n.skill
-                            ? "opacity-10"
-                            : "opacity-100"
-                        } shadow-2xl rounded-lg cursor-pointer items-center font-semibold text-lg capitalize bg-gray-800 p-2`}
-                      >
-                        <span
-                          className={`rounded-full p-2 bg-${n.color}-100 text-${n.color}-500`}
+                      <div className="flex flex-col gap-2" key={idx}>
+                        <li
+                          onClick={() =>
+                            setReason(reason === n.skill ? "" : n.skill)
+                          }
+                          className={`flex gap-2 transition-all duration-75 ${
+                            reason !== "" && reason !== n.skill
+                              ? "opacity-10"
+                              : "opacity-100"
+                          } shadow-2xl rounded-lg cursor-pointer items-center font-semibold text-lg capitalize bg-gray-800 p-2`}
                         >
-                          {n.icon}
-                        </span>
-                        <span>{n.skill}</span>
-                      </li>
+                          <span
+                            className={`rounded-full p-2 bg-${n.color}-100 text-${n.color}-500`}
+                          >
+                            {n.icon}
+                          </span>
+                          <span>{n.skill}</span>
+                        </li>
+                        {reason === n.skill &&
+                          n.options &&
+                          n.options.length > 0 && (
+                            <motion.div
+                              initial={{ translateY: "-20px", opacity: 0 }}
+                              animate={{ translateY: "0px", opacity: 1 }}
+                              className="mx-6 flex flex-col bg-slate-800 overflow-hidden rounded-lg"
+                            >
+                              {n.options.map((option, idx) => (
+                                <React.Fragment key={idx}>
+                                  <div
+                                    className={`text-base group flex gap-4 hover:bg-gray-700 py-2 h-full cursor-pointer font-semibold px-2 capitalize`}
+                                  >
+                                    <div>{n.optionsIcon}</div>
+                                    {option}
+                                  </div>
+                                  <div
+                                    className={`${
+                                      idx !== n.options.length - 1
+                                        ? "border-b border-gray-600 w-full"
+                                        : ""
+                                    }`}
+                                  ></div>
+                                </React.Fragment>
+                              ))}
+                            </motion.div>
+                          )}
+                      </div>
                     ))}
                   </ul>
                 </div>

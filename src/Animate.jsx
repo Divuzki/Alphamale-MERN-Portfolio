@@ -59,56 +59,60 @@ const text = {
 };
 export const InitialTransition = ({ setFirstMount }) => {
   const [firstMount2, setFirstMount2] = React.useState(false);
-  return firstMount2 === false && (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <motion.div
-        className="absolute z-50 flex items-center justify-center w-full bg-body"
-        initial="initial"
-        animate="animate"
-        variants={blackBox}
-        onAnimationStart={() => document.body.classList.add("overflow-hidden")}
-        onAnimationComplete={() => {
-          document.body.classList.remove("overflow-hidden");
+  return (
+    firstMount2 === false && (
+      <div className="fixed z-[200] inset-0 flex w-screen h-screen top-0 left-0 items-center justify-center">
+        <motion.div
+          className="absolute z-50 flex items-center justify-center w-full bg-body"
+          initial="initial"
+          animate="animate"
+          variants={blackBox}
+          onAnimationStart={() =>
+            document.body.classList.add("overflow-hidden")
+          }
+          onAnimationComplete={() => {
+            document.body.classList.remove("overflow-hidden");
             setFirstMount(true);
-            setFirstMount2(true)
-        }}
-      >
-        <motion.svg variants={textContainer} className="absolute z-50 flex">
-          <pattern
-            id="pattern"
-            patternUnits="userSpaceOnUse"
-            width={750}
-            height={800}
-            className="text-white"
-          >
-            <rect className="w-full h-full fill-current" />
-            <motion.rect
-              variants={text}
-              className="w-full h-full text-gray-600 fill-current"
-            />
-          </pattern>
-          <text
-            className="text-4xl font-bold"
-            text-anchor="middle"
-            x="50%"
-            y="50%"
-            style={{ fill: "url(#pattern)" }}
-          >
-            datalphamale
-          </text>
-        </motion.svg>
-      </motion.div>
-    </div>
+            setFirstMount2(true);
+          }}
+        >
+          <motion.svg variants={textContainer} className="absolute z-50 flex">
+            <pattern
+              id="pattern"
+              patternUnits="userSpaceOnUse"
+              width={750}
+              height={800}
+              className="text-white"
+            >
+              <rect className="w-full h-full fill-current" />
+              <motion.rect
+                variants={text}
+                className="w-full h-full text-gray-600 fill-current"
+              />
+            </pattern>
+            <text
+              className="text-4xl font-bold"
+              textAnchor="middle"
+              x="50%"
+              y="50%"
+              style={{ fill: "url(#pattern)" }}
+            >
+              datalphamale.
+            </text>
+          </motion.svg>
+        </motion.div>
+      </div>
+    )
   );
 };
 
-const Animate = ({ children, indexPage }) => {
+const Animate = ({ children, duration }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: duration ? duration : 1 }}
     >
       {children}
     </motion.div>

@@ -10,12 +10,15 @@ const App = () => {
   const [firstMount, setFirstMount] = React.useState(false);
   if (firstMount === false) {
     setFirstMount(true);
+    localStorage.setItem("new_user", true);
   }
   const location = useLocation();
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode={"wait"}>
       <motion.section exit={{ opacity: 0 }}>
-        {firstMount === true && <InitialTransition setFirstMount={setFirstMount} />}
+        {firstMount === true && (
+          <InitialTransition setFirstMount={setFirstMount} />
+        )}
 
         <Header indexPage={location.pathname === "/" && true} />
         <div className="mt-40 md:mt-[6.5rem]">
