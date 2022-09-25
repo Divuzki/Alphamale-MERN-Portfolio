@@ -36,7 +36,7 @@ const SkillComponent = () => {
                     <h2 className=" text-xl title-font font-medium mb-3">
                       {n.skill}
                     </h2>
-                    <p className="leading-relaxed text-sm text-justify">
+                    <p className="leading-relaxed text-sm md:text-start text-justify">
                       {n.msg}
                     </p>
                   </div>

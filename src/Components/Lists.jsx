@@ -12,8 +12,7 @@ export const skillsList = [
     skill: "Cinematography",
     icon: <CinematographyIcon className="w-6 h-6 fill-green-500" />,
     color: "green",
-    msg: `A cinematographer, also known as a Director of Photography, is in charge of the camera and the lighting crew. 
-    We will responsible for the photographing or recording of a film, television production, music video or other live action piece.`,
+    msg: `A cinematographer, also known as a Director of Photography, is in charge of the camera and the lighting crew. We will responsible for the photographing or recording of a film, television production, music video or other live action piece.`,
     optionsIcon: <FilmReelIcon className="w-6 h-6 fill-emerald-400" />,
   },
   {

@@ -5,6 +5,7 @@ import HireFormComponent from "./Components/HireFormComponent";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { InitialTransition } from "./Animate";
+import AuthComponent from "./Components/Admin/auth";
 
 const App = () => {
   const [firstMount, setFirstMount] = React.useState(false);
@@ -25,6 +26,7 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<MainContainer />} />
             <Route path="/pages/hire" element={<HireFormComponent />} />
+            <Route path="/auth/*" element={<AuthComponent />} />
           </Routes>
         </div>
       </motion.section>
