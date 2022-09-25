@@ -1,7 +1,7 @@
 import React from "react";
 import { skillsList } from "./Lists.jsx";
 
-function SkillComponent() {
+const SkillComponent = () => {
   return (
     // <!-- Clients -->
     <div className="container mt-12 flex justify-between items-center mx-auto px-8 md:px-14 lg:px-24 w-full">
@@ -16,8 +16,7 @@ function SkillComponent() {
         </p>
 
         <div className="mt-[3rem] shadow-md flex flex-wrap -mx-4 w-full">
-          <div className="hidden text-pink-500 text-blue-500 text-greean-500 bg-pink-100 bg-blue-100 bg-green-100"></div>
-          <div className="p-4 md:mb-0 mb-6 flex flex-wrap gap-10 ">
+          <div className="p-4 md:mb-0 mb-6 flex flex-wrap gap-10 w-full justify-center md:justify-start">
             {skillsList.map((n, idx) => (
               <div
                 key={idx}

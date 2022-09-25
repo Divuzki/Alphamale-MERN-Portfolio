@@ -2,30 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../svgs/logo.svgr.svg";
 import MobileHeader from "./MobileHeader";
-function Header({ indexPage }) {
-  const links = [
-    {
-      name: "Home",
-      to: "",
-    },
-    {
-      name: "My Work",
-      to: "work",
-    },
-    {
-      name: "Skills",
-      to: "skills",
-    },
-    {
-      name: "Make Enquiries",
-      to: "pages/hire",
-      button: true,
-      className: "px-6 py-2 bg-theme font-bold text-[11px]",
-    },
-  ];
+import { NavLinks } from "./Lists";
+
+const Header = ({ indexPage }) => {
   return (
     <header className="pb-6 pt-4 flex top-0 fixed w-full bg-[#000000a3] backdrop-blur-md z-40">
-      <Link to="/" className="ml-4 md:ml-[4rem] flex items-center gap-4 md:w-full">
+      <Link
+        to="/"
+        className="ml-4 md:ml-[4rem] flex items-center gap-4 md:w-full"
+      >
         <Logo className="w-8 h-8" />
         <div to="/" className="text-lg font-bold hidden md:block">
           Datalphamale Studio
@@ -42,7 +27,7 @@ function Header({ indexPage }) {
       {/*  */}
       <div className="flex justify-end md:px-14 px-0 lg:px-24 md:w-full">
         <div className="hidden md:flex space-x-12 items-center">
-          {links.map((n, idx) => {
+          {NavLinks.map((n, idx) => {
             return n.button === false ? (
               <React.Fragment key={idx}>
                 {indexPage ? (
@@ -68,7 +53,7 @@ function Header({ indexPage }) {
         </div>
         {/* Mobile Header */}
         <div className="md:hidden">
-          <MobileHeader links={links} />
+          <MobileHeader links={NavLinks} />
         </div>
       </div>
     </header>

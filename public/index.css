@@ -215,3 +215,10 @@ body {
   border-radius: 50%;
   z-index: 1;
 }
+
+.outline input:focus-within ~ label,
+.outline input:not(:placeholder-shown) ~ label,
+.outline .animated-input:focus-within ~ label,
+.outline .animated-input:not(:placeholder-shown) ~ label {
+  @apply transform scale-75 -translate-y-4 z-0 ml-2 px-1 py-0 text-lg bg-body;
+}

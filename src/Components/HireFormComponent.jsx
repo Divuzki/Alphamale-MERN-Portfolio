@@ -8,7 +8,7 @@ const HireFormComponent = () => {
   return (
     // <!-- Hire me -->
     <Animate>
-      <div className="container mt-12 flex justify-between items-center mx-auto px-8 md:px-14 lg:px-24 w-full">
+      <div className="container mt-6 flex justify-between items-center mx-auto px-8 md:px-14 lg:px-24 w-full">
         <section className="w-full">
           <h2 id="hire" className="secondary-title">
             Make Enquiries
@@ -100,14 +100,19 @@ const HireFormComponent = () => {
                   </ul>
                 </div>
               </div>
-              <div>
-                <label className="text-white block mb-6 text-xl font-bold">
+              <div class="outline outline-none rounded-md relative border-2 border-input-border focus-within:border-theme">
+                <textarea
+                  type="text"
+                  id="message"
+                  placeholder=" "
+                  className="block animated-input text-base appearance-none focus:outline-none w-full bg-transparent p-4 h-56 resize-none"
+                ></textarea>
+                <label
+                  for="message"
+                  class="absolute top-0 text-3xl text-white p-4 duration-300 origin-0"
+                >
                   Message
                 </label>
-                <textarea
-                  type="email"
-                  className="w-full border border-input-border focus:outline-theme rounded-md bg-input px-4 py-4 h-56 resize-none"
-                ></textarea>
               </div>
               <button className="px-6 py-2 bg-theme rounded-lg w-full text-white font-bold">
                 Make that dream come true
@@ -118,10 +123,10 @@ const HireFormComponent = () => {
               {/* <!-- Contact info --> */}
               <p className="text-secondary">555-555-1234</p>
               <a
-                href="mailto:email@mydomain.com"
+                href="mailto:datalphamale7@gmail.com"
                 className="text-secondary underline mt-3 block"
               >
-                email@mydomain.com
+                datalphamale7@gmail.com
               </a>
 
               {/* <!-- Socials --> */}

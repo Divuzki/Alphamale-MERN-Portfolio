@@ -1,7 +1,7 @@
 import React from "react";
 import random from "lodash/random";
 
-function GalleryGrid() {
+const GalleryGrid = () => {
   // const [images, setImages] = React.useState([]);
   // React.useEffect(() => {
   //   fetch("https://picsum.photos/v2/list?page=2&limit=10")

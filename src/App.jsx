@@ -21,14 +21,9 @@ const App = () => {
         )}
 
         <Header indexPage={location.pathname === "/" && true} />
-        <div className="mt-40 md:mt-[6.5rem]">
-          <Routes>
-            <Route
-              path="/"
-              location={location}
-              key={location.pathname}
-              element={<MainContainer />}
-            />
+        <div className="mt-[6rem] md:mt-[6.5rem]">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<MainContainer />} />
             <Route path="/pages/hire" element={<HireFormComponent />} />
           </Routes>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-function HomeComponent() {
+const HomeComponent = () => {
   const updateList = () => {
     const titles = [...document.querySelectorAll("h1, h2")].sort((a, b) => {
       return (

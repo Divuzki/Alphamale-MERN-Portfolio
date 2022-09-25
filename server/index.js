@@ -8,6 +8,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import nodemailer from "nodemailer";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -23,6 +24,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(`/api/media`, mediaRoutes);
 app.use(errorHandler);
+// Mailer Config
+let transport = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 // Routes
 app.get("/", (req, res) => {
   // res.sendFile("index.html")
@@ -36,9 +48,32 @@ app.get("/", (req, res) => {
   // )
 });
 
-// app.get("/", function (req, res) {
-//   res.sendFile(__dirname + "/index.html");
-// });
+app.post("/send-mail", (req, res) => {
+  const { email, message, text } = req.body;
+  console.log(req.body);
+  let mailOptions = {
+    from: "Datalphamale Studios <datalphamale7@gmail.com>", // Sender address
+    to: `Client <${email}>`, // List of recipients
+    subject: `New Inquiries From ${email}`, // Subject line
+    html: ``
+  };
+
+  if (text) {
+    mailOptions = { ...mailOptions, text: text };
+  }
+  if (message) {
+    mailOptions = { ...mailOptions, html: `${message}` };
+  }
+
+  transport.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+      res.send("done.");
+    }
+  });
+});
 
 app.listen(PORT, () =>
   console.log(

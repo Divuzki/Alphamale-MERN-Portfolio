@@ -4,7 +4,7 @@ import GalleryGrid from "./GalleryGrid";
 import HomeComponent from "./HomeComponent";
 import SkillComponent from "./SkillComponent";
 
-function MainContainer() {
+const MainContainer = () => {
   return (
     <Animate>
       <div className="w-screen h-auto flex flex-col bg-primary">
