@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import mediaRoutes from "./routes/media.js";
+import CategoryRoutes from "./routes/category.js";
 import "colors";
 import "dotenv/config";
 import errorHandler from "./middleware/errorMiddleware.js";
@@ -23,6 +24,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(`/api/media`, mediaRoutes);
+app.use(`/api/category`, CategoryRoutes);
 app.use(errorHandler);
 // Mailer Config
 let transport = nodemailer.createTransport({

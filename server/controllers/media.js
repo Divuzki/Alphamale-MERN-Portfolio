@@ -1,9 +1,10 @@
 import { MediaSchema as Media } from "../models/media.js";
+import { CategorySchema as Category } from "../models/category.js";
 import asyncHandler from "express-async-handler";
 import { deleteMedia } from "../services/FileUploader.js";
 import createAwsStream from "../services/StreamClient.js";
 
-/* 
+/**
 @desc GET Files
 @route GET /api/media
 @access Private
@@ -13,7 +14,7 @@ export const getFiles = asyncHandler(async (req, res) => {
   res.status(200).send(files);
 });
 
-/* 
+/**
 @desc Create File
 @route POST /api/media
 @access Private
@@ -32,18 +33,20 @@ export const createMedia = asyncHandler(async (req, res) => {
     : isVideo
     ? files["video"][0].mimetype
     : "None";
+  const category = Category.findOne({ name: body.category });
   const newMedia = await Media.create({
     title: body.title,
     video: isVideo ? files["video"][0].location : null,
     image: isImage ? files["image"][0].location : null,
     desc: body.desc,
     format: format,
+    category: category || null,
   });
   // files.push({ ...body, id: uuidv4() });
   res.send(newMedia);
 });
 
-/* 
+/**
 @desc GET File
 @route GET /api/media/:id
 @access Private
@@ -53,7 +56,7 @@ export const getFile = asyncHandler(async (req, res) => {
   res.status(200).json(foundfile);
 });
 
-/* 
+/**
 @desc Update File
 @route PATCH /api/media/:id
 @access Private
@@ -77,7 +80,7 @@ export const updateFile = asyncHandler(async (req, res) => {
   res.status(200).send(updatedFile);
 });
 
-/* 
+/**
 @desc Delete File
 @route DELETE /api/media/:id
 @access Private

@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { CategoryModel } from "./category.js";
+
 const MediaModel = mongoose.Schema(
   {
     title: {
@@ -18,6 +20,7 @@ const MediaModel = mongoose.Schema(
       type: String,
       required: false,
     },
+    category: CategoryModel,
   },
   {
     timestamps: true,

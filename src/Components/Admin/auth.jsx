@@ -4,7 +4,7 @@ const AuthComponent = () => {
   return (
     <div className="w-full h-full justify-center mt-5 items-center">
       <div class="w-full px-2 max-w-xs m-auto">
-      <form class="bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form class="bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
           <label
             class="block text-gray-100 text-sm font-bold mb-2"
