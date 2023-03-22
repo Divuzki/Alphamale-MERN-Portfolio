@@ -1,9 +1,9 @@
 import { MediaSchema as Media } from "../models/media.js";
-import { CategorySchema as Category } from "../models/category.js";
+import { Category, Subcategory } from "../models/category.js";
 import asyncHandler from "express-async-handler";
-import { deleteMedia } from "../services/FileUploader.js";
+import upload, { deleteMedia } from "../services/FileUploader.js";
 import createAwsStream from "../services/StreamClient.js";
-
+import { getVideoDurationInSeconds } from "../services/get_video_duration.js";
 /**
 @desc GET Files
 @route GET /api/media
@@ -19,31 +19,65 @@ export const getFiles = asyncHandler(async (req, res) => {
 @route POST /api/media
 @access Private
 */
+
 export const createMedia = asyncHandler(async (req, res) => {
   const body = req.body;
   const files = req.files;
   let isVideo = files["video"] && files["video"].length > 0;
   let isImage = files["image"] && files["image"].length > 0;
+
   if (!isVideo && !isImage) {
     res.status(400);
     throw new Error("Please add either an image or a video");
   }
+
+  const category = await Category.findOne({ name: body.category });
+
+  if (!category) {
+    res.status(400);
+    throw new Error("Invalid category");
+  }
+
+  const subcategory = await Subcategory.findOne({
+    name: body.subcategory,
+    category: category.id,
+  });
+
   let format = isImage
     ? files["image"][0].mimetype
     : isVideo
     ? files["video"][0].mimetype
     : "None";
-  const category = Category.findOne({ name: body.category });
+
+  const uploadedFiles = {};
+  if (isImage) {
+    uploadedFiles["image"] = await upload.single("image")(req, res);
+  }
+
+  if (isVideo) {
+    const video = files["video"][0];
+    const duration = await getVideoDurationInSeconds(video.path);
+    const preview = duration < 10 ? video.location : null;
+
+    if (preview) {
+      uploadedFiles["preview"] = { location: preview };
+    }
+
+    uploadedFiles["video"] = await upload.single("video")(req, res);
+  }
+
   const newMedia = await Media.create({
     title: body.title,
-    video: isVideo ? files["video"][0].location : null,
-    image: isImage ? files["image"][0].location : null,
+    video: isVideo ? uploadedFiles["video"].location : null,
+    image: isImage ? uploadedFiles["image"].location : null,
+    preview: isVideo ? uploadedFiles["preview"].location : null,
     desc: body.desc,
     format: format,
-    category: category || null,
+    category: category.id,
+    subcategory: subcategory ? subcategory.id : null,
   });
-  // files.push({ ...body, id: uuidv4() });
-  res.send(newMedia);
+
+  res.status(201).json(newMedia);
 });
 
 /**

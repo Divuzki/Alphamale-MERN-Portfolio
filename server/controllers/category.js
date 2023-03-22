@@ -1,7 +1,4 @@
-import {
-  CategorySchema as Category,
-  SubcategorySchema as Subcategory,
-} from "../models/category.js";
+import { Category, Subcategory } from "../models/category.js";
 import asyncHandler from "express-async-handler";
 
 /**
@@ -10,8 +7,11 @@ import asyncHandler from "express-async-handler";
 @access Private
 */
 export const getCategories = asyncHandler(async (req, res) => {
-  const categories = await Category.find();
-  res.status(200).send(categories);
+  const categories = await Category.find()
+    .populate("subcategories", "name")
+    .lean();
+
+  res.json({ categories });
 });
 
 /**
@@ -20,79 +20,82 @@ export const getCategories = asyncHandler(async (req, res) => {
 @access Private
 */
 export const createCategory = asyncHandler(async (req, res) => {
-  const body = req.body;
-  console.log(body);
-  const checkCategory = await Category.findOne({ name: body.name });
+  let { name, subcategories } = req.body;
+
+  const checkCategory = await Category.findOne({ name: name });
   if (checkCategory) {
     res.status(400);
     throw new Error("Category already exists");
   }
-  const subcategories = [];
-  if (body.subcategories && body.subcategories.split(",")) {
-    let subcategoriesArray = body.subcategories.split(",");
-    let name = body.name;
-    for (let i = 0; i < subcategoriesArray.length; i++) {
-      const element = subcategoriesArray[i];
-      if (element !== "") {
-        const newSubcategory = await Subcategory.create({
-          name: element,
-          category_name: name,
-        });
-        subcategories.push(newSubcategory);
-      }
+
+  const subcategoryIds = [];
+  if (subcategories && subcategories.length > 0) {
+    subcategories = subcategories.split(",");
+    for (let i = 0; i < subcategories.length; i++) {
+      const subcategory = subcategories[i];
+      const newSubcategory = await Subcategory.create({
+        name: subcategory.name,
+        category_name: name,
+      });
+      subcategoryIds.push(newSubcategory._id);
     }
   }
+
   const newCategory = await Category.create({
-    name: body.name,
-    subcategories: subcategories || null,
+    name,
+    subcategories: subcategoryIds,
   });
-  res.send({ newCategory });
+
+  res.status(201).json({ newCategory });
 });
 
 /**
 @desc GET Category
-@route GET /api/category/:name
+@route GET /api/category/:id
 @access Private
 */
 export const getCategory = asyncHandler(async (req, res) => {
-  const foundfile = await Category.findOne({ name: req.params.name });
+  const { id } = req.params;
+  const foundfile = await Category.findById(id);
   res.status(200).json(foundfile);
 });
 
 /**
 @desc Update Category
-@route PATCH /api/category/:name
+@route PATCH /api/category/:id
 @access Private
 */
 export const updateCategory = asyncHandler(async (req, res) => {
-  const data = await Category.findOne({ name: req.params.name });
+  const { id } = req.params;
+  const data = await Category.findById(id);
   if (!data) {
     res.status(404);
     throw new Error("Category not found");
   }
 
   const updatedFile = await Category.findOneAndUpdate(
-    req.params.name,
+    data.name,
     req.body,
     {
       new: true,
     }
   );
 
-  res.status(200).send(updatedFile);
+  res.status(200).json({updatedFile});
 });
 
 /**
 @desc Delete Category
-@route DELETE /api/category/:name
+@route DELETE /api/category/:id
 @access Private
 */
 export const deleteCategory = asyncHandler(async (req, res) => {
-  const data = await Category.findOne({ name: req.params.name });
+  const { id } = req.params;
+  const data = await Category.findById(id);
   if (!data) {
     res.status(404);
     throw new Error("Category not found");
   }
   await data.remove();
-  res.status(200).send({ name: req.params.name });
+  res.status(200).json({ id: id });
 });

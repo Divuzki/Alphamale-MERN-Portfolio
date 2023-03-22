@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { CategoryModel } from "./category.js";
 
 const MediaModel = mongoose.Schema(
   {
@@ -20,10 +19,20 @@ const MediaModel = mongoose.Schema(
       type: String,
       required: false,
     },
-    category: CategoryModel,
+    preview: {
+      type: String,
+      required: false,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: [true, "Please add a Category"],
+    },
+    subcategory: { type: mongoose.Schema.Types.ObjectId, ref: "Subcategory" },
   },
   {
     timestamps: true,
   }
 );
+
 export const MediaSchema = mongoose.model("Media", MediaModel);

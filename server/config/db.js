@@ -5,7 +5,7 @@ import "dotenv/config";
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(
-      process.env.NODE_ENV !== "production"
+      process.env.NODE_ENV === "production"
         ? process.env.DB_CONNECTION_URL
         : "mongodb://127.0.0.1:27017/mernapp"
     );

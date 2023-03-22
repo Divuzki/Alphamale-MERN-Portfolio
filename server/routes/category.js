@@ -11,7 +11,7 @@ const router = express.Router();
 // all routes in here are starting with /category
 router.get("/", getCategories).post("/", createCategory);
 router
-  .get("/:name", getCategory)
-  .delete("/:name", deleteCategory)
-  .patch("/:name", updateCategory);
+  .get("/:id", getCategory)
+  .delete("/:id", deleteCategory)
+  .patch("/:id", updateCategory);
 export default router;

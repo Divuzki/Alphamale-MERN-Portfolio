@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mediaRoutes from "./routes/media.js";
 import CategoryRoutes from "./routes/category.js";
+import SubcategoryRoutes from "./routes/subcategory.js";
 import "colors";
 import "dotenv/config";
 import errorHandler from "./middleware/errorMiddleware.js";
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(`/api/media`, mediaRoutes);
 app.use(`/api/category`, CategoryRoutes);
+app.use(`/api/subcategory`, SubcategoryRoutes);
 app.use(errorHandler);
 // Mailer Config
 let transport = nodemailer.createTransport({
@@ -45,9 +47,9 @@ app.get("/", (req, res) => {
   } catch (err) {
     res.status(500).send("internal server error occurred");
   }
-  // res.send(
-  //   "This Api was created by Divine Ikhuoria aka divuzki https://www.github.com/divuzki"
-  // )
+  res.send(
+    "This Api was created by Divine Ikhuoria aka divuzki https://www.github.com/divuzki"
+  );
 });
 
 app.post("/send-mail", (req, res) => {
@@ -57,7 +59,7 @@ app.post("/send-mail", (req, res) => {
     from: "Datalphamale Studios <datalphamale7@gmail.com>", // Sender address
     to: `Client <${email}>`, // List of recipients
     subject: `New Inquiries From ${email}`, // Subject line
-    html: ``
+    html: ``,
   };
 
   if (text) {
